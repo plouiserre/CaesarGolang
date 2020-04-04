@@ -18,21 +18,26 @@ func main() {
 
 	msgToCipher := cipher{
 		key : key, 
-		text : text,
-		alphabet : myLetters,
 	}
 
-	newSentence := msgToCipher.cipherSentence()
+	caesarWorkflow := workflow{
+		text : text,
+		alphabet : myLetters,
+		crypt : msgToCipher,
+	}
+
+	newSentence := caesarWorkflow.transformSentence()
 
 	fmt.Printf("Voici la nouvelle phrase chiffre %s \n", newSentence)
 
 	msgToDecipher := decipher{
-		key : key, 
-		text : newSentence,
-		alphabet : myLetters,
+		key : key,
 	}
 
-	oldSentence := msgToDecipher.decipherSentence()
+	caesarWorkflow.setIcipher(msgToDecipher)
+	caesarWorkflow.setText(newSentence)
+
+	oldSentence := caesarWorkflow.transformSentence()
 
 	fmt.Printf("Voici l'ancienne phrase dechiffre %s \n", oldSentence)
 }
