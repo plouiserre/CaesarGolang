@@ -11,7 +11,12 @@ func main() {
 		alphabet : []rune {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'},
 	 } 
 
-	text := "je suis le texte a chiffrer"
+	data := file{
+		path:"data/file.txt",
+	}
+
+	text := data.readFile()
+	
 	fmt.Println(text)
 
 	key := 5
