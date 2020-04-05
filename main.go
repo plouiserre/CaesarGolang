@@ -12,11 +12,14 @@ func main() {
 	 } 
 
 	data := file{
-		path:"data/file.txt",
+		pathReadFile:"data/file.txt",
+		pathWriteFile:"data/cipheredText.txt",
 	}
 
+	data.deleteExistCipheredText()
+
 	text := data.readFile()
-	
+
 	fmt.Println(text)
 
 	key := 5
@@ -34,6 +37,8 @@ func main() {
 	newSentence := caesarWorkflow.transformSentence()
 
 	fmt.Printf("Voici la nouvelle phrase chiffre %s \n", newSentence)
+	
+	data.writeCipherMessage(newSentence)
 
 	msgToDecipher := decipher{
 		key : key,
@@ -45,4 +50,5 @@ func main() {
 	oldSentence := caesarWorkflow.transformSentence()
 
 	fmt.Printf("Voici l'ancienne phrase dechiffre %s \n", oldSentence)
+
 }
