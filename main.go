@@ -15,6 +15,8 @@ func main() {
 		pathWriteFile:"data/cipheredText.txt",
 	}
 
+	allCaracteres.GenerateUppercaseAlphabet()
+
 	data.deleteExistCipheredText()
 
 	text := data.readFile()
