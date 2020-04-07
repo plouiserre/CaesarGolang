@@ -2,6 +2,8 @@ package main
 
 import(	
 	"strings"
+	"fmt"
+	"os"
 )
 
 type workflow struct {
@@ -32,9 +34,22 @@ func (w *workflow)transformSentence() string {
 func (w *workflow)transformWord(word string) string {
 	lettersOfNewWord := []rune{}
 	for _, letter := range word {
+		isUpperCase := false 
+		isNormalLetter := false
 		isPunctuation := w.caracter.IsPunctuation(letter)
 		if(isPunctuation == false){
-			isUpperCase := w.caracter.IsUpperCase(letter)
+			isUpperCase =  w.caracter.IsUpperCase(letter)
+			if(isUpperCase == false){
+				isNormalLetter = w.caracter.IsNormalLetter(letter)
+			}
+		}
+
+		if(isPunctuation == false && isUpperCase == false && isNormalLetter){
+			fmt.Printf("Dans le text est un caractère inconnu donc on arrête tout \n")
+			os.Exit(1)
+		}
+
+		if(isPunctuation == false){
 			if(isUpperCase == false){
 				indexLetter := w.caracter.GetLetterIndex(letter)
 				newIndex :=  w.crypt.GetNewIndex(indexLetter)

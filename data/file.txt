@@ -1,1 +1,1 @@
-Tu es un texte a chiffrer de maniere optimisee. Pour l'instant, je ne prends pas en compte les majuscules  :(. Mais je prends en compte la ponctuation ET LES ACCENTS!!!!
+é Tu es un texte a chiffrer de maniere optimisee. Pour l'instant, je ne prends pas en compte les majuscules  :(. Mais je prends en compte la ponctuation ET LES ACCENTS!!!!

@@ -65,7 +65,7 @@ func (c *caracteres) GetUppercase(index int) rune {
 	return result
 }
 
-//TODO facotriser IsPunctuation et IsUpperCase
+//TODO facotriser IsPunctuation et IsUpperCase et IsNormalLetter
 func (c *caracteres) IsPunctuation (element rune) bool{
 	result := false
 	for _, punc := range c.punctuation{
@@ -80,6 +80,16 @@ func (c *caracteres) IsUpperCase (element rune) bool{
 	result := false
 	for _, upperLetter := range c.uppercaseAlphabet{
 		if element == upperLetter{
+			result = true;
+		}
+	}
+	return result
+}
+
+func (c *caracteres) IsNormalLetter (element rune) bool{
+	result := false
+	for _, letter := range c.alphabet{
+		if element == letter{
 			result = true;
 		}
 	}
