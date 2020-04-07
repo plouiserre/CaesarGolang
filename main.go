@@ -4,11 +4,10 @@ import (
 	"fmt"
 )
 
-
-
 func main() {
-	myLetters := letters{
+	allCaracteres := caracteres{
 		alphabet : []rune {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'},
+		punctuation: []rune{'.',',','?',';',':','/','&','\'','(','§','!',')','-','_','+','=','*'},
 	 } 
 
 	data := file{
@@ -30,7 +29,7 @@ func main() {
 
 	caesarWorkflow := workflow{
 		text : text,
-		alphabet : myLetters,
+		caracter : allCaracteres,
 		crypt : msgToCipher,
 	}
 

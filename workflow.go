@@ -6,7 +6,7 @@ import(
 
 type workflow struct {
 	text string
-	alphabet letters
+	caracter caracteres
 	crypt icipher
 }
 
@@ -31,10 +31,15 @@ func (w *workflow)transformSentence() string {
 func (w *workflow)transformWord(word string) string {
 	lettersOfNewWord := []rune{}
 	for _, letter := range word {
-		indexLetter := w.alphabet.GetIndex(letter)
-		newIndex :=  w.crypt.GetNewIndex(indexLetter)
-		newLetter := w.alphabet.GetLetter(newIndex)
-		lettersOfNewWord = append(lettersOfNewWord, newLetter)
+			isPunctuation := w.caracter.IsPunctuation(letter)
+			if(isPunctuation == false){
+			indexLetter := w.caracter.GetIndex(letter)
+			newIndex :=  w.crypt.GetNewIndex(indexLetter)
+			newLetter := w.caracter.GetLetter(newIndex)
+			lettersOfNewWord = append(lettersOfNewWord, newLetter)
+		} else {
+			lettersOfNewWord = append(lettersOfNewWord, letter)
+		}
 	}
 	newWord := string(lettersOfNewWord)
 	return newWord
