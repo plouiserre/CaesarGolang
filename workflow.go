@@ -44,8 +44,8 @@ func (w *workflow)transformWord(word string) string {
 			}
 		}
 
-		if(isPunctuation == false && isUpperCase == false && isNormalLetter){
-			fmt.Printf("Dans le text est un caractère inconnu donc on arrête tout \n")
+		if(isPunctuation == false && isUpperCase == false && isNormalLetter == false){
+			fmt.Printf("Dans le mot %s il y a le caractère %s inconnu donc on arrête tout \n", word, string(letter))
 			os.Exit(1)
 		}
 
