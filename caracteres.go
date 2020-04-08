@@ -45,21 +45,24 @@ func (c *caracteres) GetUppercaseIndex(caracteresToPlace rune) int {
 
 func (c *caracteres) GetLetter(index int) rune {
 	newIndex := 0
-	if index <= 25 {
+	max := len(c.alphabet)
+	if index <= max {
 		newIndex = index
 	} else {
-		newIndex = index % 25
+		newIndex = index % max
 	}
+
 	result := c.alphabet[newIndex]
 	return result
 }
 
 func (c *caracteres) GetUppercase(index int) rune {
 	newIndex := 0
-	if index <= 25 {
+	max := len(c.alphabet)
+	if index <= max {
 		newIndex = index
 	} else {
-		newIndex = index % 25
+		newIndex = index % max
 	}
 	result := c.uppercaseAlphabet[newIndex]
 	return result

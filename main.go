@@ -6,7 +6,7 @@ import (
 
 func main() {
 	allCaracteres := caracteres{
-		alphabet : []rune {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'},
+		alphabet : []rune {'a', 'à','ä','b', 'c', 'd', 'e','é','è','ê','ë','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o','ö','ô', 'p', 'q', 'r', 's', 't', 'u','ù','û','v', 'w', 'x', 'y', 'z'},
 		punctuation: []rune{'.',',','?',';',':','/','&','\'','(','§','!',')','-','_','+','=','*'},
 	 } 
 
@@ -27,6 +27,7 @@ func main() {
 
 	msgToCipher := cipher{
 		key : key, 
+		length : len(allCaracteres.alphabet),
 	}
 
 	caesarWorkflow := workflow{
@@ -43,6 +44,7 @@ func main() {
 
 	msgToDecipher := decipher{
 		key : key,
+		length : len(allCaracteres.alphabet),
 	}
 
 	caesarWorkflow.setIcipher(msgToDecipher)
