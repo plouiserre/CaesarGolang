@@ -9,7 +9,8 @@ import(
 type workflow struct {
 	text string
 	caracter caracteres
-	crypt icipher
+	crypt icipher 
+	lettersOfNewWord []rune
 }
 
 func (w *workflow) setIcipher(cipher icipher){
@@ -30,17 +31,17 @@ func (w *workflow)transformSentence() string {
 	return newSentence
 }
 
-//TODO réécrire cette méthode
+//TODO réécrire cette méthode (étape 8)
 func (w *workflow)transformWord(word string) string {
-	lettersOfNewWord := []rune{}
+	w.lettersOfNewWord = []rune{}
 	for _, letter := range word {
 		isUpperCase := false 
 		isNormalLetter := false
-		isPunctuation := w.caracter.IsPunctuation(letter)
+		isPunctuation := w.caracter.IsSpecificCaracters(letter, w.caracter.punctuation)
 		if(isPunctuation == false){
-			isUpperCase =  w.caracter.IsUpperCase(letter)
+			isUpperCase =  w.caracter.IsSpecificCaracters(letter, w.caracter.uppercaseAlphabet)
 			if(isUpperCase == false){
-				isNormalLetter = w.caracter.IsNormalLetter(letter)
+				isNormalLetter = w.caracter.IsSpecificCaracters(letter, w.caracter.alphabet)
 			}
 		}
 
@@ -51,20 +52,20 @@ func (w *workflow)transformWord(word string) string {
 
 		if(isPunctuation == false){
 			if(isUpperCase == false){
-				indexLetter := w.caracter.GetLetterIndex(letter)
+				indexLetter := w.caracter.GetSpecificIndex(letter, w.caracter.alphabet)
 				newIndex :=  w.crypt.GetNewIndex(indexLetter)
-				newLetter := w.caracter.GetLetter(newIndex)
-				lettersOfNewWord = append(lettersOfNewWord, newLetter)
+				newLetter := w.caracter.GetSpecificCaracters(newIndex, w.caracter.alphabet)
+				w.lettersOfNewWord = append(w.lettersOfNewWord, newLetter)
 			}else {
-				indexLetter := w.caracter.GetUppercaseIndex(letter)
+				indexLetter := w.caracter.GetSpecificIndex(letter, w.caracter.uppercaseAlphabet)
 				newIndex :=  w.crypt.GetNewIndex(indexLetter)
-				newLetter := w.caracter.GetUppercase(newIndex)
-				lettersOfNewWord = append(lettersOfNewWord, newLetter)
+				newLetter := w.caracter.GetSpecificCaracters(newIndex, w.caracter.uppercaseAlphabet)
+				w.lettersOfNewWord = append(w.lettersOfNewWord, newLetter)
 			}
 		} else {
-			lettersOfNewWord = append(lettersOfNewWord, letter)
+			w.lettersOfNewWord = append(w.lettersOfNewWord, letter)
 		}
 	}
-	newWord := string(lettersOfNewWord)
+	newWord := string(w.lettersOfNewWord)
 	return newWord
 }

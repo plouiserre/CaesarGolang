@@ -17,12 +17,10 @@ func (c *caracteres) GenerateUppercaseAlphabet(){
 		c.uppercaseAlphabet = append(c.uppercaseAlphabet, upperLetter)
 	}
 }
-
-//TODO factoriser GetLetterIndex et GetUpperCaseIndex
-func (c *caracteres) GetLetterIndex(caracteresToPlace rune) int {
+func (c *caracteres) GetSpecificIndex(caracteresToPlace rune, listCaracteres []rune) int {
 	index := 0
-	for i := range c.alphabet {
-		if c.alphabet[i] == caracteresToPlace {
+	for i := range listCaracteres {
+		if listCaracteres[i] == caracteresToPlace {
 			index = i
 			break
 		}
@@ -31,34 +29,22 @@ func (c *caracteres) GetLetterIndex(caracteresToPlace rune) int {
 	return index
 }
 
-func (c *caracteres) GetUppercaseIndex(caracteresToPlace rune) int {
-	index := 0
-	for i := range c.uppercaseAlphabet {
-		if c.uppercaseAlphabet[i] == caracteresToPlace {
-			index = i
-			break
-		}
-	}
-
-	return index
-}
-
-func (c *caracteres) GetLetter(index int) rune {
+func (c *caracteres) GetSpecificCaracters(index int, listCaracteres []rune) rune {
 	newIndex := 0
-	max := len(c.alphabet)
+	max := len(listCaracteres)
 	if index <= max {
 		newIndex = index
 	} else {
 		newIndex = index % max
 	}
 
-	result := c.alphabet[newIndex]
+	result := listCaracteres[newIndex]
 	return result
 }
 
 func (c *caracteres) GetUppercase(index int) rune {
 	newIndex := 0
-	max := len(c.alphabet)
+	max := len(c.uppercaseAlphabet)
 	if index <= max {
 		newIndex = index
 	} else {
@@ -69,9 +55,9 @@ func (c *caracteres) GetUppercase(index int) rune {
 }
 
 //TODO facotriser IsPunctuation et IsUpperCase et IsNormalLetter
-func (c *caracteres) IsPunctuation (element rune) bool{
+func (c *caracteres) IsSpecificCaracters (element rune, caracteres []rune) bool{
 	result := false
-	for _, punc := range c.punctuation{
+	for _, punc := range caracteres{
 		if element == punc{
 			result = true;
 		}
@@ -79,22 +65,22 @@ func (c *caracteres) IsPunctuation (element rune) bool{
 	return result;
 }
 
-func (c *caracteres) IsUpperCase (element rune) bool{
-	result := false
-	for _, upperLetter := range c.uppercaseAlphabet{
-		if element == upperLetter{
-			result = true;
-		}
-	}
-	return result
-}
+// func (c *caracteres) IsUpperCase (element rune) bool{
+// 	result := false
+// 	for _, upperLetter := range c.uppercaseAlphabet{
+// 		if element == upperLetter{
+// 			result = true;
+// 		}
+// 	}
+// 	return result
+// }
 
-func (c *caracteres) IsNormalLetter (element rune) bool{
-	result := false
-	for _, letter := range c.alphabet{
-		if element == letter{
-			result = true;
-		}
-	}
-	return result
-}
+// func (c *caracteres) IsNormalLetter (element rune) bool{
+// 	result := false
+// 	for _, letter := range c.alphabet{
+// 		if element == letter{
+// 			result = true;
+// 		}
+// 	}
+// 	return result
+// }
