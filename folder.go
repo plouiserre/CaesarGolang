@@ -7,7 +7,8 @@ import (
 )
 
 type folder struct {
-	path string
+	pathRead string
+	pathWrite string
 	contentByFile map[string] string
 	files []os.FileInfo
 	msgToCipher cipher
@@ -16,16 +17,16 @@ type folder struct {
 
 func (f folder)WorkflowFolder (){
 	f.contentByFile = make(map[string]string)
+
+	f.ClearOutputDirectory()
 	
 	f.GetAllFiles()
 
 	f.CipherFiles()
-	
 }
 
 func (f *folder) GetAllFiles(){
-	//lister les fichiers 
-	files, err := ioutil.ReadDir(f.path)
+	files, err := ioutil.ReadDir(f.pathRead)
 
 	if(err != nil){
 		fmt.Println(err);
@@ -38,15 +39,12 @@ func (f folder)CipherFiles(){
 	
 	for _, fileReading := range f.files{
 		fileName := fileReading.Name()
-		fileName = f.GetFilesPath(fileName)
 		fileToCipher := file{
-			pathReadFile : fileName,
+			pathReadFile : f.pathRead+"/"+fileName,
+			pathWriteFile : f.pathWrite+"/"+fileName,
 		}
 
-		//TODO ne pas passer par deux étapes mais directement par une seul
 		content := fileToCipher.readFile()
-
-		content = fileToCipher.manageApostrophe(content)
 
 		caesarWorkflow := workflow{
 			text : content,
@@ -57,13 +55,22 @@ func (f folder)CipherFiles(){
 		sentenceCiphered := caesarWorkflow.transformSentence()
 
 		fmt.Printf("%s chiffre donne \n %s \n", fileName, sentenceCiphered)
+
+		fileToCipher.writeCipherMessage(sentenceCiphered)
 	}
 }
 
-func (f folder) WriteCipherResult(){
+func (f folder) ClearOutputDirectory(){
+	files, err := ioutil.ReadDir(f.pathWrite)
 
-}
+	if(err != nil){
+		fmt.Println(err);
+	}
 
-func (f folder) GetFilesPath(fileName string )string{
-	return f.path+"/"+fileName
+	for _, fileToManage := range files{
+		fileToDelete := file{
+			pathWriteFile : f.pathWrite+"/"+fileToManage.Name(),
+		}
+		fileToDelete.deleteExistCipheredText()
+	}
 }

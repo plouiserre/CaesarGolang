@@ -52,7 +52,8 @@ func main() {
 	// fmt.Printf("Voici l'ancienne phrase dechiffre %s \n", oldSentence)
 
 	folderToWork := folder{
-		path: "data/input/",
+		pathRead: "data/input/",
+		pathWrite: "data/output/",
 		msgToCipher :msgToCipher,
 		allCaracteres :allCaracteres,
 	}

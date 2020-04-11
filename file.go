@@ -3,9 +3,9 @@ import(
 	"fmt" 
 	"io/ioutil"
 	"os"
-	"strings"
 )
 
+//TODO vérifier si il faut le faire le tri sur les variables
 type file struct{
 	pathReadFile string
 	pathWriteFile string
@@ -46,10 +46,4 @@ func (f file) fileExist() bool {
 		return false
 	}
 	return !info.IsDir()
-}
-
-//TODO mieux intégrer cette méthode 
-func (f file) manageApostrophe (content string) string {
-	contentModified := strings.Replace(content, "'","\\'", -1)
-	return contentModified
 }
