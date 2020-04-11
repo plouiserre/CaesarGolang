@@ -12,6 +12,7 @@ type folder struct {
 	contentByFile map[string] string
 	files []os.FileInfo
 	msgToCipher cipher
+	msgToDecipher decipher
 	allCaracteres caracteres
 }
 
@@ -35,6 +36,7 @@ func (f *folder) GetAllFiles(){
 	f.files = files
 }
 
+//TODO structurer cette méthode
 func (f folder)CipherFiles(){
 	
 	for _, fileReading := range f.files{
@@ -57,6 +59,13 @@ func (f folder)CipherFiles(){
 		fmt.Printf("%s chiffre donne \n %s \n", fileName, sentenceCiphered)
 
 		fileToCipher.writeCipherMessage(sentenceCiphered)
+
+		caesarWorkflow.setIcipher(f.msgToDecipher)
+		caesarWorkflow.setText(sentenceCiphered)
+
+		oldSentence := caesarWorkflow.transformSentence()
+
+		fmt.Printf("Voici l'ancienne phrase dechiffre %s \n", oldSentence)
 	}
 }
 

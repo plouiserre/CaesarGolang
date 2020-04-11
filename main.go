@@ -16,10 +16,6 @@ func main() {
 
 	data.deleteExistCipheredText()
 
-	//text := data.readFile()
-
-	//fmt.Println(text)
-
 	key := 5
 
 	msgToCipher := cipher{
@@ -27,34 +23,16 @@ func main() {
 		length : len(allCaracteres.alphabet),
 	}
 
-	// caesarWorkflow := workflow{
-	// 	text : text,
-	// 	caracter : allCaracteres,
-	// 	crypt : msgToCipher,
-	// }
-
-	// newSentence := caesarWorkflow.transformSentence()
-
-	// fmt.Printf("Voici la nouvelle phrase chiffre %s \n", newSentence)
-	
-	// data.writeCipherMessage(newSentence)
-
-	// msgToDecipher := decipher{
-	// 	key : key,
-	// 	length : len(allCaracteres.alphabet),
-	// }
-
-	// caesarWorkflow.setIcipher(msgToDecipher)
-	// caesarWorkflow.setText(newSentence)
-
-	// oldSentence := caesarWorkflow.transformSentence()
-
-	// fmt.Printf("Voici l'ancienne phrase dechiffre %s \n", oldSentence)
+	msgToDecipher := decipher{
+		key : key,
+		length : len(allCaracteres.alphabet),
+	}
 
 	folderToWork := folder{
 		pathRead: "data/input/",
 		pathWrite: "data/output/",
 		msgToCipher :msgToCipher,
+		msgToDecipher : msgToDecipher,
 		allCaracteres :allCaracteres,
 	}
 
