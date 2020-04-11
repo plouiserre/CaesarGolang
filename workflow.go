@@ -2,12 +2,15 @@ package main
 
 import(	
 	"strings"
+	"fmt"
+	"os"
 )
 
 type workflow struct {
 	text string
-	alphabet letters
-	crypt icipher
+	caracter caracteres
+	crypt icipher 
+	lettersOfNewWord []rune
 }
 
 func (w *workflow) setIcipher(cipher icipher){
@@ -28,14 +31,41 @@ func (w *workflow)transformSentence() string {
 	return newSentence
 }
 
+//TODO réécrire cette méthode (étape 8)
 func (w *workflow)transformWord(word string) string {
-	lettersOfNewWord := []rune{}
+	w.lettersOfNewWord = []rune{}
 	for _, letter := range word {
-		indexLetter := w.alphabet.GetIndex(letter)
-		newIndex :=  w.crypt.GetNewIndex(indexLetter)
-		newLetter := w.alphabet.GetLetter(newIndex)
-		lettersOfNewWord = append(lettersOfNewWord, newLetter)
+		isUpperCase := false 
+		isNormalLetter := false
+		isPunctuation := w.caracter.IsSpecificCaracters(letter, w.caracter.punctuation)
+		if(isPunctuation == false){
+			isUpperCase =  w.caracter.IsSpecificCaracters(letter, w.caracter.uppercaseAlphabet)
+			if(isUpperCase == false){
+				isNormalLetter = w.caracter.IsSpecificCaracters(letter, w.caracter.alphabet)
+			}
+		}
+
+		if(isPunctuation == false && isUpperCase == false && isNormalLetter == false){
+			fmt.Printf("Dans le mot %s il y a le caractère %s inconnu donc on arrête tout \n", word, string(letter))
+			os.Exit(1)
+		}
+
+		if(isPunctuation == false){
+			if(isUpperCase == false){
+				indexLetter := w.caracter.GetSpecificIndex(letter, w.caracter.alphabet)
+				newIndex :=  w.crypt.GetNewIndex(indexLetter)
+				newLetter := w.caracter.GetSpecificCaracters(newIndex, w.caracter.alphabet)
+				w.lettersOfNewWord = append(w.lettersOfNewWord, newLetter)
+			}else {
+				indexLetter := w.caracter.GetSpecificIndex(letter, w.caracter.uppercaseAlphabet)
+				newIndex :=  w.crypt.GetNewIndex(indexLetter)
+				newLetter := w.caracter.GetSpecificCaracters(newIndex, w.caracter.uppercaseAlphabet)
+				w.lettersOfNewWord = append(w.lettersOfNewWord, newLetter)
+			}
+		} else {
+			w.lettersOfNewWord = append(w.lettersOfNewWord, letter)
+		}
 	}
-	newWord := string(lettersOfNewWord)
+	newWord := string(w.lettersOfNewWord)
 	return newWord
 }
