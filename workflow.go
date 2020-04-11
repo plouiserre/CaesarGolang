@@ -44,6 +44,13 @@ func (w *workflow)transformWord(word string) string {
 				isNormalLetter = w.caracter.IsSpecificCaracters(letter, w.caracter.alphabet)
 			}
 		}
+		
+		//mettre une étape pour faire un continue si c'est ' et l'ajouter dans le truc a chiffrer
+		//TODO améliorer et le mettre en méthode
+		if(letter == 8217 || letter == 10){
+			w.lettersOfNewWord = append(w.lettersOfNewWord, letter)
+			continue
+		}
 
 		if(isPunctuation == false && isUpperCase == false && isNormalLetter == false){
 			fmt.Printf("Dans le mot %s il y a le caractère %s inconnu donc on arrête tout \n", word, string(letter))
