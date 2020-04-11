@@ -2,6 +2,7 @@ package main
 
 type decipher struct{
 	key int
+	length int
 }
 
 func (m decipher)GetNewIndex(indexLetter int) int {
@@ -14,7 +15,7 @@ func (m decipher)GetNewIndex(indexLetter int) int {
 			indexLetter --
 			key --
 		}
-		newIndex = 25 - key
+		newIndex = m.length - key
 	}
 	return newIndex
 }

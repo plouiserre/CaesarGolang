@@ -1,1 +1,1 @@
-tu es un texte a chiffrer de maniere optimisee pour l'instant je ne prends pas en compte la ponctuation et les accents
+Tu es un texte à chiffrer de manière optimisée. Je prends tout en compte   :D comme la ponctuation, les caractères spéciaux, les accents ET LES MAJUSCULES!!!!
