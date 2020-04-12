@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"fmt"
 	"os"
+	"time"
 )
 
 type folder struct {
@@ -37,11 +38,10 @@ func (f *folder) GetAllFiles(){
 }
 
 func (f folder)CipherFiles(){
-	
 	for _, fileReading := range f.files{
-
-		f.CipherFile(fileReading)
+		go f.CipherFile(fileReading)
 	}
+	time.Sleep(time.Second)
 }
 
 func (f folder) CipherFile(fileReading os.FileInfo){
