@@ -5,6 +5,7 @@ import(
 	"os"
 )
 
+//TODO vérifier si il faut le faire le tri sur les variables
 type file struct{
 	pathReadFile string
 	pathWriteFile string
