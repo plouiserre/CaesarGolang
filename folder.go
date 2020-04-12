@@ -36,37 +36,21 @@ func (f *folder) GetAllFiles(){
 	f.files = files
 }
 
-//TODO structurer cette méthode
 func (f folder)CipherFiles(){
 	
 	for _, fileReading := range f.files{
-		fileName := fileReading.Name()
-		fileToCipher := file{
-			pathReadFile : f.pathRead+"/"+fileName,
-			pathWriteFile : f.pathWrite+"/"+fileName,
-		}
 
-		content := fileToCipher.readFile()
-
-		caesarWorkflow := workflow{
-			text : content,
-			caracter : f.allCaracteres,
-			crypt : f.msgToCipher,
-		}
-
-		sentenceCiphered := caesarWorkflow.transformSentence()
-
-		fmt.Printf("%s chiffre donne \n %s \n", fileName, sentenceCiphered)
-
-		fileToCipher.writeCipherMessage(sentenceCiphered)
-
-		caesarWorkflow.setIcipher(f.msgToDecipher)
-		caesarWorkflow.setText(sentenceCiphered)
-
-		oldSentence := caesarWorkflow.transformSentence()
-
-		fmt.Printf("Voici l'ancienne phrase dechiffre %s \n", oldSentence)
+		f.CipherFile(fileReading)
 	}
+}
+
+func (f folder) CipherFile(fileReading os.FileInfo){
+	workflowEncryption := workflow {
+		fileReading : fileReading,
+		folderCrossing : f,
+	}
+
+	workflowEncryption.ManipulateFile()
 }
 
 func (f folder) ClearOutputDirectory(){
