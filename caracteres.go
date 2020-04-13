@@ -8,6 +8,9 @@ type caracteres struct {
 	alphabet [] rune
 	punctuation [] rune
 	uppercaseAlphabet [] rune
+	isUpperCase bool
+	isNormalLetter bool 
+	isPunctuation bool
 }
 
 func (c *caracteres) GenerateUppercaseAlphabet(){
@@ -52,6 +55,17 @@ func (c *caracteres) GetUppercase(index int) rune {
 	}
 	result := c.uppercaseAlphabet[newIndex]
 	return result
+}
+
+
+func (c *caracteres) DeterminesTypeCaracters(letter rune){
+		c.isPunctuation =c.IsSpecificCaracters(letter, c.punctuation)
+		if(c.isPunctuation == false){
+			c.isUpperCase =  c.IsSpecificCaracters(letter, c.uppercaseAlphabet)
+			if(c.isUpperCase == false){
+				c.isNormalLetter = c.IsSpecificCaracters(letter, c.alphabet)
+			}
+		}
 }
 
 func (c *caracteres) IsSpecificCaracters (element rune, caracteres []rune) bool{
