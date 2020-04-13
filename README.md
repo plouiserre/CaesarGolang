@@ -1,7 +1,7 @@
 # CaesarGolang
 
 ## But 
-Pour mettre ne pratique ce que j'ai appris online en golang, j'ai décidé de développer ce programme. Il permet de lire le contenu dans des fichiers pour ensuite les chiffrer et écrire le contenu crypté dans un nouveau fichier.
+Pour mettre en pratique ce que j'ai appris online en golang, j'ai décidé de développer ce programme. Il permet de lire le contenu dans des fichiers pour ensuite les chiffrer avec l'algorithme de césar  ou chiffrement par décalage(https://fr.wikipedia.org/wiki/Chiffrement_par_d%C3%A9calage) et écrire le contenu crypté dans un nouveau fichier.
 Pour vérifier que le chiffrement se passe bien, je déchiffre ce qui a été chiffrer et je l'affiche sur la console.
 
 ## Particularité
