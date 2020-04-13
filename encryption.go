@@ -31,48 +31,45 @@ func (e *encryption)transformSentence() string {
 	return newSentence
 }
 
-//TODO réécrire cette méthode (étape 8)
 func (e *encryption)transformWord(word string) string {
 	e.lettersOfNewWord = []rune{}
 	for _, letter := range word {
-		isUpperCase := false 
-		isNormalLetter := false
-		isPunctuation := e.caracter.IsSpecificCaracters(letter, e.caracter.punctuation)
-		if(isPunctuation == false){
-			isUpperCase =  e.caracter.IsSpecificCaracters(letter, e.caracter.uppercaseAlphabet)
-			if(isUpperCase == false){
-				isNormalLetter = e.caracter.IsSpecificCaracters(letter, e.caracter.alphabet)
-			}
-		}
-		
-		//mettre une étape pour faire un continue si c'est ' et l'ajouter dans le truc a chiffrer
-		//TODO améliorer et le mettre en méthode
+		//8217 => ' 10 => &amp;
 		if(letter == 8217 || letter == 10){
 			e.lettersOfNewWord = append(e.lettersOfNewWord, letter)
 			continue
 		}
+		
+		carac := e.caracter
+		carac.DeterminesTypeCaracters(letter)	
 
-		if(isPunctuation == false && isUpperCase == false && isNormalLetter == false){
+		if(carac.isPunctuation == false && carac.isUpperCase == false && carac.isNormalLetter == false){
 			fmt.Printf("Dans le mot %s il y a le caractère %s inconnu donc on arrête tout \n", word, string(letter))
 			os.Exit(1)
 		}
 
-		if(isPunctuation == false){
-			if(isUpperCase == false){
-				indexLetter := e.caracter.GetSpecificIndex(letter, e.caracter.alphabet)
-				newIndex :=  e.crypt.GetNewIndex(indexLetter)
-				newLetter := e.caracter.GetSpecificCaracters(newIndex, e.caracter.alphabet)
-				e.lettersOfNewWord = append(e.lettersOfNewWord, newLetter)
-			}else {
-				indexLetter := e.caracter.GetSpecificIndex(letter, e.caracter.uppercaseAlphabet)
-				newIndex :=  e.crypt.GetNewIndex(indexLetter)
-				newLetter := e.caracter.GetSpecificCaracters(newIndex, e.caracter.uppercaseAlphabet)
-				e.lettersOfNewWord = append(e.lettersOfNewWord, newLetter)
-			}
-		} else {
-			e.lettersOfNewWord = append(e.lettersOfNewWord, letter)
-		}
+		e.GetLetterCiphered(letter, carac)
 	}
 	newWord := string(e.lettersOfNewWord)
 	return newWord
+}
+
+func (e *encryption) GetLetterCiphered(letter rune, carac caracteres){
+	if(carac.isPunctuation == false){
+		if(carac.isUpperCase == false){
+			e.lettersOfNewWord = e.DetermineNewLetter(e.caracter.alphabet, letter)
+		}else {
+			e.lettersOfNewWord = e.DetermineNewLetter(e.caracter.uppercaseAlphabet, letter)
+		}
+	} else {
+		e.lettersOfNewWord = append(e.lettersOfNewWord, letter)
+	}
+}
+
+func (e encryption) DetermineNewLetter(alphabet []rune, letter rune) []rune{
+	indexLetter := e.caracter.GetSpecificIndex(letter, alphabet)
+	newIndex :=  e.crypt.GetNewIndex(indexLetter)
+	newLetter := e.caracter.GetSpecificCaracters(newIndex, alphabet)
+	lettersCiphered := append(e.lettersOfNewWord, newLetter)
+	return lettersCiphered
 }
