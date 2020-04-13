@@ -8,7 +8,7 @@ Pour vérifier que le chiffrement se passe bien, je déchiffre ce qui a été ch
 Manipulation de fichiers
 Utilisation des routines en go
 
-## Details
+## Détails
 main.go : point d'entrée du programme
 caracteres.go : toutes les opérations sur les caractères non chiffrement
 icipher.go : interface pour déterminer le nouvel index de la lettre chiffré ou déchiffrer 
